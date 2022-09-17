@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zdogan <zdogan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:04:15 by zdogan            #+#    #+#             */
-/*   Updated: 2022/09/17 18:42:22 by zdogan           ###   ########.fr       */
+/*   Updated: 2022/09/17 18:33:40 by zdogan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,30 +92,37 @@ char	*ft_static_str(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char		*str;
+	static char		*str[1024];
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	str = ft_read(fd, str);
-	if (!str)
+	str[fd] = ft_read(fd, str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = ft_new_line(str);
-	str = ft_static_str(str);
+	line = ft_new_line(str[fd]);
+	str[fd] = ft_static_str(str[fd]);
 	return (line);
 }
 
-// int	main()
+// int	main(int ac, char **av)
 // {
 // 	int	fd;
+// 	int	i = 1;
 
-// 	fd = open("get_next_line_utils.c", O_RDWR);
-// 	char	*x = get_next_line(0);
-// 	while(x)
+// 	if (ac >= 2)
 // 	{
-// 		printf("%s", x);
-// 		free(x);
-// 		x = get_next_line(0);
+// 		while (av[i++])
+// 		{
+// 			fd = open(av[i], O_RDWR);
+// 			char	*x = get_next_line(fd);
+// 			while(x)
+// 			{
+// 				printf("%s", x);
+// 				free(x);
+// 				x = get_next_line(fd);
+// 			}
+// 		}
 // 	}
 // 	system("leaks a.out");
 // }
