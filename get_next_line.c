@@ -6,16 +6,16 @@
 /*   By: zdogan <zdogan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:04:15 by zdogan            #+#    #+#             */
-/*   Updated: 2022/09/17 18:42:22 by zdogan           ###   ########.fr       */
+/*   Updated: 2022/09/21 16:34:15 by zdogan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-//read return value = rdrv
-int	ft_error(int rdrv, char *buff, char *str)
+//read return value = rv
+int	ft_error(int rv, char *buff, char *str)
 {
-	if (rdrv == -1)
+	if (rv == -1)
 	{
 		free (buff);
 		free (str);
@@ -27,7 +27,7 @@ int	ft_error(int rdrv, char *buff, char *str)
 char	*ft_read(int fd, char *str)
 {
 	char	*buff;
-	int		rdrv;
+	int		rv;
 	char	*tmp;
 
 	if (!str)
@@ -35,15 +35,15 @@ char	*ft_read(int fd, char *str)
 	buff = malloc(BUFFER_SIZE * sizeof(char) + 1);
 	if (!buff)
 		return (NULL);
-	rdrv = 1;
-	while (!ft_strchr(str, '\n') && rdrv != 0)
+	rv = 1;
+	while (!ft_strchr(str, '\n') && rv != 0)
 	{
-		rdrv = read(fd, buff, BUFFER_SIZE);
-		if (rdrv == 0)
+		rv = read(fd, buff, BUFFER_SIZE);
+		if (rv == 0)
 			break ;
-		if (ft_error(rdrv, buff, str))
+		if (ft_error(rv, buff, str))
 			return (NULL);
-		buff[rdrv] = '\0';
+		buff[rv] = '\0';
 		tmp = ft_strjoin(str, buff);
 		free(str);
 		str = tmp;
@@ -110,12 +110,12 @@ char	*get_next_line(int fd)
 // 	int	fd;
 
 // 	fd = open("get_next_line_utils.c", O_RDWR);
-// 	char	*x = get_next_line(0);
+// 	char	*x = get_next_line(fd);
 // 	while(x)
 // 	{
 // 		printf("%s", x);
 // 		free(x);
-// 		x = get_next_line(0);
+// 		x = get_next_line(fd);
 // 	}
 // 	system("leaks a.out");
 // }
