@@ -6,7 +6,7 @@
 /*   By: zdogan <zdogan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:04:15 by zdogan            #+#    #+#             */
-/*   Updated: 2022/09/21 16:32:46 by zdogan           ###   ########.fr       */
+/*   Updated: 2022/11/12 20:00:41 by zdogan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,30 @@ char	*get_next_line(int fd)
 // 				free(x);
 // 				x = get_next_line(fd);
 // 			}
+// 		}
+// 	}
+// 	system("leaks a.out");
+// }
+
+// int	main()
+// {
+// 	int	fd = open("get_next_line.h", O_RDONLY);
+// 	int	fd1 = open("get_next_line.c", O_RDONLY);
+// 	char	*x = get_next_line(fd);
+// 	char	*y = get_next_line(fd1);
+// 	while (x || y)
+// 	{
+// 		if (x)
+// 		{
+// 			printf("%s", x);
+// 			free(x);
+// 			x = get_next_line(fd);
+// 		}
+// 		if (y)
+// 		{
+// 			printf("%s", y);
+// 			free(y);
+// 			y = get_next_line(fd1);	
 // 		}
 // 	}
 // 	system("leaks a.out");

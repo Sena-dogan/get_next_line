@@ -6,7 +6,7 @@
 /*   By: zdogan <zdogan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 17:04:15 by zdogan            #+#    #+#             */
-/*   Updated: 2022/09/21 16:34:15 by zdogan           ###   ########.fr       */
+/*   Updated: 2022/10/30 19:53:39 by zdogan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ char	*ft_new_line(char *str)
 	if (!str || !*str)
 		return (NULL);
 	ptr = ft_strchr(str, '\n');
-	if (!ptr)
+	if (!ptr) // ex: dosyasonu\0 (\n yok, strchr null döner)
 		return (ft_strdup(str));
 	ptr++;
-	if (!*ptr)
+	if (!*ptr) //   dosyasonu\n\0
 		return (ft_strdup(str));
 	len = ft_strlen(str) - ft_strlen(ptr);
 	return (ft_substr(str, 0, len));
@@ -74,13 +74,13 @@ char	*ft_static_str(char *str)
 	char	*ptr;
 
 	ptr = ft_strchr(str, '\n');
-	if (!ptr)
+	if (!ptr) // newline daki ilk if e girdiği için kalan str yok
 	{
 		free(str);
 		return (NULL);
 	}
 	ptr++;
-	if (!(*ptr))
+	if (!(*ptr)) // newline daki 2. if e girdiği için kalan str yok
 	{
 		free(str);
 		return (NULL);
